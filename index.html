@@ -1,28 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Store</title>
-    <link rel="stylesheet" href="styles/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Store</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Store</h1>
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
-            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
-        </nav>
-    </header>
+  <header>
+    <nav>
+      <a href="#" class="logo"><i class="fas fa-laptop"></i> TechStore</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html"><i class="fas fa-shopping-cart"></i> (<span class="cart-count">0</span>)</a>
+      </div>
+    </nav>
+  </header>
 
-    <section class="featured-products">
-        <h2>Featured Items</h2>
-        <div class="product-list">
-            <!-- Dynamically add featured products via JavaScript -->
-        </div>
-    </section>
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Welcome to TechStore</h1>
+      <p>Discover the latest gadgets and tech accessories</p>
+    </div>
+  </div>
 
-    <script src="scripts/app.js"></script>
+  <section class="products-grid">
+    <!-- Product Cards (Repeat for each product) -->
+    <div class="product-card">
+      <img src="images/product1.jpg" alt="Laptop" class="product-image">
+      <div class="product-info">
+        <h3 class="product-title">Premium Laptop</h3>
+        <p class="product-price">$999.99</p>
+        <button class="add-to-cart" onclick="addToCart('p1', 'Premium Laptop', 999.99)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 TechStore. All rights reserved.</p>
+  </footer>
+
+  <script src="scripts/app.js"></script>
 </body>
 </html>

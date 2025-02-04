@@ -1,41 +1,76 @@
-// Cart functionality using localStorage
+// Cart Logic with localStorage
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function addToCart(productId, price) {
-    cart.push({ id: productId, price: price });
-    updateCart();
-}
-
-function updateCart() {
-    // Save to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-    
-    // Update cart counter
-    document.querySelectorAll('#cart-count').forEach(el => {
-        el.textContent = cart.length;
+// Add to Cart
+function addToCart(productId, productName, price) {
+  const existingItem = cart.find(item => item.id === productId);
+  
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      id: productId,
+      name: productName,
+      price: price,
+      quantity: 1
     });
-
-    // Update cart page
-    if (window.location.pathname.includes('cart.html')) {
-        const cartItems = document.getElementById('cart-items');
-        const cartTotal = document.getElementById('cart-total');
-        let total = 0;
-        
-        cartItems.innerHTML = '';
-        cart.forEach(item => {
-            total += item.price;
-            cartItems.innerHTML += `
-                <div class="cart-item">
-                    <p>Product ${item.id}</p>
-                    <p>$${item.price.toFixed(2)}</p>
-                </div>
-            `;
-        });
-        
-        cartTotal.textContent = total.toFixed(2);
-        document.getElementById('form-total').value = total.toFixed(2);
-    }
+  }
+  
+  updateCart();
+  showNotification(`${productName} added to cart!`);
 }
 
-// Initialize cart on page load
-updateCart();
+// Update Cart Everywhere
+function updateCart() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  
+  // Update Cart Counter
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+  document.querySelectorAll('.cart-count').forEach(el => {
+    el.textContent = totalItems;
+  });
+
+  // Update Cart Page
+  if (window.location.pathname.includes('cart.html')) {
+    const cartItemsEl = document.getElementById('cart-items');
+    const totalEl = document.getElementById('cart-total');
+    let total = 0;
+    
+    cartItemsEl.innerHTML = '';
+    cart.forEach(item => {
+      total += item.price * item.quantity;
+      cartItemsEl.innerHTML += `
+        <div class="cart-item">
+          <div>
+            <h4>${item.name}</h4>
+            <p>$${item.price} x ${item.quantity}</p>
+          </div>
+          <button onclick="removeItem('${item.id}')">Remove</button>
+        </div>
+      `;
+    });
+    
+    totalEl.textContent = total.toFixed(2);
+  }
+}
+
+// Remove Item
+function removeItem(productId) {
+  cart = cart.filter(item => item.id !== productId);
+  updateCart();
+}
+
+// Notification System
+function showNotification(message) {
+  const notification = document.createElement('div');
+  notification.className = 'notification';
+  notification.textContent = message;
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
+}
+
+// Initialize Cart on Load
+document.addEventListener('DOMContentLoaded', updateCart);
