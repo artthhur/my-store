@@ -1,0 +1,13 @@
+<!-- Same header as index.html -->
+<section class="checkout">
+    <h2>Checkout</h2>
+    <form id="checkout-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="address" placeholder="Shipping Address" required>
+        <input type="hidden" name="cart_total" id="form-total">
+        <button type="submit">Place Order</button>
+    </form>
+</section>
+
+<script src="scripts/app.js"></script>
