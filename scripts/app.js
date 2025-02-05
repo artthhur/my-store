@@ -74,3 +74,38 @@ function showNotification(message) {
 
 // Initialize Cart on Load
 document.addEventListener('DOMContentLoaded', updateCart);
+// Product Detail Page Logic
+function updateQuantity(change) {
+    const quantityInput = document.getElementById('quantity');
+    let quantity = parseInt(quantityInput.value) + change;
+    if (quantity < 1) quantity = 1;
+    quantityInput.value = quantity;
+  }
+  
+  function addToCartWithQuantity() {
+    const quantity = parseInt(document.getElementById('quantity').value);
+    const productId = 'p1'; // Get from URL parameter
+    const productName = document.getElementById('product-title').textContent;
+    const price = 999.99; // Get from data attribute
+  
+    addToCart(productId, productName, price, quantity);
+  }
+  
+  // Update addToCart function to handle quantity
+  function addToCart(productId, productName, price, quantity = 1) {
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+      existingItem.quantity += quantity;
+    } else {
+      cart.push({
+        id: productId,
+        name: productName,
+        price: price,
+        quantity: quantity
+      });
+    }
+    
+    updateCart();
+    showNotification(`${productName} (x${quantity}) added to cart!`);
+  }

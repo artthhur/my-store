@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <header>
+    <!-- Same navigation as index.html -->
+  </header>
+
+  <section class="product-detail">
+    <div class="product-images">
+      <img src="images/product1-large.jpg" alt="Product 1" id="main-image">
+      <div class="thumbnail-grid">
+        <img src="images/product1-thumb1.jpg" alt="Thumbnail 1" class="thumbnail">
+        <img src="images/product1-thumb2.jpg" alt="Thumbnail 2" class="thumbnail">
+      </div>
+    </div>
+
+    <div class="product-info">
+      <h1 id="product-title">Premium Laptop</h1>
+      <p class="price">$999.99</p>
+      <p class="description">16GB RAM, 1TB SSD, Intel Core i9 Processor</p>
+      <div class="quantity-selector">
+        <button onclick="updateQuantity(-1)">-</button>
+        <input type="number" id="quantity" value="1" min="1">
+        <button onclick="updateQuantity(1)">+</button>
+      </div>
+      <button class="add-to-cart" onclick="addToCartWithQuantity()">Add to Cart</button>
+    </div>
+  </section>
+
+  <script src="scripts/app.js"></script>
+</body>
+</html>
